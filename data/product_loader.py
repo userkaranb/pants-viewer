@@ -14,9 +14,9 @@ mydb = MySQLdb.connect(host='localhost',
 cursor = mydb.cursor()
 p = ProductCsvTranslator()
 translated_rows = p.translate()
-q = 'INSERT INTO tbl_products(product_name, product_image, product_description) VALUES("%s", "%s", "%s")'
+q = 'INSERT INTO tbl_products(product_id, product_name, product_image, product_description) VALUES("%s", "%s", "%s", "%s")'
 for product_id, product_fields in translated_rows.iteritems():
-    cursor.execute(q, (product_fields['name'], product_fields['image'], product_fields['description']))
+    cursor.execute(q, (product_id, product_fields['name'], product_fields['image'], product_fields['description']))
     mydb.commit()
 
 cursor.close()
