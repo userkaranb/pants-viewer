@@ -17,9 +17,10 @@ class DataAccess(object):
         result = []
         cursor = self.mydb.cursor()
         cursor.execute(self.query())
+        field_names = [i[0] for i in cursor.description]
+        result.append(field_names)
         for row in cursor:
             result.append(row)
-        print result
         return result
 
 
