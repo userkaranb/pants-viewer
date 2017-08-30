@@ -4,7 +4,8 @@ class ProductCachingService(object):
     def __init__(self, dataAccess):
         self.dataAccess = dataAccess
         self.product_map = self.initialize_product_map()
-        self.jsonified_map = self.product_map_to_jsonified_dict()
+        self.jsonofied_product_map = self.product_map_to_jsonified_dict()
+        self.jsonified_map = self.product_map_to_jsonified_dict_with_inventory_list()
 
     def initialize_product_map(self):
         all_rows = self.dataAccess.get_all_product_rows()
@@ -12,6 +13,14 @@ class ProductCachingService(object):
         return product_map
 
     def product_map_to_jsonified_dict(self):
+        result = {}
+        for product_id, product in self.product_map.iteritems():
+            jsonified_product = product.__dict__.copy()
+            jsonified_product.pop('inventory_list', None)
+            result[product_id] = jsonified_product
+        return result
+
+    def product_map_to_jsonified_dict_with_inventory_list(self):
         result = {}
         for product_id, product in self.product_map.iteritems():
             inventory_items = []

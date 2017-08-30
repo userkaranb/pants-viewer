@@ -7,9 +7,13 @@ app = Flask(__name__)
 def main():
     return render_template('index.html')
 
+@app.route("/products_with_inventory")
+def products_with_inventory():
+    return jsonify(product_caching_service.jsonified_map)
+
 @app.route("/products")
 def products():
-    return jsonify(product_caching_service.jsonified_map)
+    return jsonify(product_caching_service.jsonofied_product_map)
 
 @app.route("/products/<product_id>")
 def products_by_id(product_id):
