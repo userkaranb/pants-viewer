@@ -17,7 +17,3 @@ class DataAccess(object):
         for row in self.cursor:
             result.append(row)
         return result
-
-
-
-
