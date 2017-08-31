@@ -32,7 +32,7 @@ def insert_inventory_query():
     return '''INSERT INTO inventory(product_id, waist, length, style, count) VALUES(?, ?, ?, ?, ?)'''
 
 def insert_products(c, conn):
-    p = ProductCsvTranslator('csv/products.csv')
+    p = ProductCsvTranslator()
     q = insert_products_query()
     translated_rows = p.translate()
     for product_fields in translated_rows:
@@ -46,7 +46,7 @@ def insert_products(c, conn):
         conn.commit()
 
 def insert_inventory(c, conn):
-    i = InventoryCsvTranslator('csv/inventory.csv')
+    i = InventoryCsvTranslator()
     q = insert_inventory_query()
     translated_rows = i.translate()
     for product_fields in translated_rows:

@@ -2,7 +2,7 @@ import csv
 import os
 
 class ProductCsvTranslator(object):
-    def __init__(self, path_to_csv = 'data/csv/products.csv'):
+    def __init__(self, path_to_csv = 'csv/products.csv'):
         self.path_to_csv = path_to_csv
 
     def translate(self):
@@ -26,7 +26,7 @@ class ProductCsvTranslator(object):
         }
 
 class InventoryCsvTranslator(object):
-    def __init__(self, path_to_csv = 'data/csv/inventory.csv'):
+    def __init__(self, path_to_csv = 'csv/inventory.csv'):
         self.path_to_csv = path_to_csv
 
     def translate(self):
