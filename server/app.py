@@ -1,7 +1,10 @@
 from flask import Flask, render_template, jsonify
 from services.ProductCachingService import ProductCachingService
 from data.DataAccess import DataAccess
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def main():
