@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Router, Route } from 'react-router';
 import Request from 'superagent';
 class ProductsView extends Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.pantsDiv = this.pantsDiv.bind(this);
     this.goToInventory = this.goToInventory.bind(this);
     this.state = {products: []}
@@ -19,13 +19,14 @@ class ProductsView extends Component {
   }
 
   goToInventory(id){
+    this.props.history.push('/inventory/' + id)
   }
 
   pantsDiv(key){
      return (
         <div key={key} id={key}>
         <div>{this.state.products[key]['product_name']}</div>
-        <div><img src={this.state.products[key]['product_image']} onClick={this.goToInventory(key)}/></div>
+        <div><img src={this.state.products[key]['product_image']} onClick={() => this.goToInventory(key)}/></div>
         </div>
     )
   }

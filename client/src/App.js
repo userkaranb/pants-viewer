@@ -12,10 +12,11 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div>
+        <switch>
           <Route exact path="/" exact component={ProductsView}/>
+          <Route exact path="/products" exact component={ProductsView}/>
           <Route exact path="/inventory/:id" exact component={InventoryView}/>
-        </div>  
+        </switch>
       </BrowserRouter>
     );
   }
