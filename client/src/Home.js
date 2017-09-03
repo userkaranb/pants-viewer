@@ -4,6 +4,7 @@ class Home extends Component {
   constructor(){
     super()
     this.pantsDiv = this.pantsDiv.bind(this);
+    this.goToInventory = this.goToInventory.bind(this);
     this.state = {products: []}
   }
   
@@ -16,12 +17,16 @@ class Home extends Component {
     });
   }
 
+  goToInventory(){
+    console.log('here')
+  }
+
   pantsDiv(key){
     console.log(this.state.products[key])
      return (
         <div key={key} id={key}>
         <div>{this.state.products[key]['product_name']}</div>
-        <div><img src={this.state.products[key]['product_image']}/></div>
+        <div><img src={this.state.products[key]['product_image']} onClick={this.goToInventory}/></div>
         </div>
     )
   }
