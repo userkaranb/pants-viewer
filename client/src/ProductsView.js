@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Router, Route } from 'react-router';
 import Request from 'superagent';
-class Home extends Component {
+class ProductsView extends Component {
   constructor(){
     super()
     this.pantsDiv = this.pantsDiv.bind(this);
@@ -48,4 +49,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default ProductsView;
