@@ -3,19 +3,14 @@ import Request from 'superagent';
 class InventoryView extends Component {
   constructor(props){
     super(props)
-    this.state = {products: []}
+    this.state = {inventory: []}
   }
   
   componentWillMount(){
-    var url = "http://localhost:5000/products"
-    Request.get(url).then((response) => {
-        this.setState({
-            products: response.body
-        })
-    });
   }
 
   render() {
+    console.log('inventory')
     return (
         <div>
         <h1>TODO</h1>

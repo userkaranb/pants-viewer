@@ -18,16 +18,14 @@ class ProductsView extends Component {
     });
   }
 
-  goToInventory(){
-    console.log('here')
+  goToInventory(id){
   }
 
   pantsDiv(key){
-    console.log(this.state.products[key])
      return (
         <div key={key} id={key}>
         <div>{this.state.products[key]['product_name']}</div>
-        <div><img src={this.state.products[key]['product_image']} onClick={this.goToInventory}/></div>
+        <div><img src={this.state.products[key]['product_image']} onClick={this.goToInventory(key)}/></div>
         </div>
     )
   }
@@ -41,10 +39,10 @@ class ProductsView extends Component {
 
     return (
         <div>
-        <h1>Welcome To Bonobos Pants Viewer</h1>
-        <h2>Click on An Image to see its inventory</h2>
-        {content}
-       </div>
+            <h1>Welcome To Bonobos Pants Viewer</h1>
+            <h2>Click on An Image to see its inventory</h2>
+            {content}
+        </div>
     );
   }
 }
