@@ -12,6 +12,7 @@ class ProductsView extends Component {
   componentWillMount(){
     var url = "http://localhost:5000/products"
     Request.get(url).then((response) => {
+        console.log(response)
         this.setState({
             products: response.body
         })
