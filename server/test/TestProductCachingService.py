@@ -6,9 +6,9 @@ from models.Product import Product
 global_vars = { 
     'ProductCachingService': None,
     'ProductHeaders': ['id', 'product_id', 'waist', 'length', 'style', 'count', 'product_id', 'product_name', 'product_image', 'product_description'],
-    'ProductData1': (1, 1, 28, 36, 'style 1', 100, 1, 'Roomy Trousers 1', 'www.bonobos.com/1', 'Roomy Beige Trousers'),
-    'ProductData2': (2, 2, 30, 32, 'style 1', 85, 2, 'Skinny Jeans 1', 'www.bonobos.com/2', 'Skinny Jeans'),
-    'ProductData3': (3, 2, 32, 32, 'style 1', 10, 2, 'Skinny Jeans 2', 'www.bonobos.com/3', 'Skinny Jeans')
+    'ProductData1': (1, 1, 28, 36, 'style 1', 100, 1, ' " Roomy Trousers 1\" " ', 'www.bonobos.com/1', 'Roomy Beige Trousers'),
+    'ProductData2': (2, 2, 30, 32, 'style 2', 85, 2, 'Skinny Jeans 1', 'www.bonobos.com/2', 'Skinny Jeans'),
+    'ProductData3': (3, 2, 32, 32, 'style 3', 10, 2, 'Skinny Jeans 1', 'www.bonobos.com/2', 'Skinny Jeans')
 } 
 
 def setup_product_caching_service():

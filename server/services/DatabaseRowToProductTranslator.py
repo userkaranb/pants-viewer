@@ -5,7 +5,6 @@ class DatabaseRowToProductTranslator(object):
     @staticmethod
     def translate_rows_to_model(rows):
         product_id_to_product = {}
-        product_names = rows[0]
         for row in rows[1:]:
             product_id, inventory_item = DatabaseRowToProductTranslator.get_inventory_item(row)
             if product_id in product_id_to_product:
