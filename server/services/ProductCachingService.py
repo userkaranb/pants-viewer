@@ -1,14 +1,14 @@
 from DatabaseRowToProductTranslator import DatabaseRowToProductTranslator
 
 class ProductCachingService(object):
-    def __init__(self, dataAccess):
-        self.dataAccess = dataAccess
+    def __init__(self, data_access):
+        self.data_access = data_access
         self.product_map = self.initialize_product_map()
         self.jsonofied_product_map = self.product_map_to_jsonified_dict()
         self.jsonified_map = self.product_map_to_jsonified_dict_with_inventory_list()
 
     def initialize_product_map(self):
-        all_rows = self.dataAccess.get_all_product_rows()
+        all_rows = self.data_access.get_all_product_rows()
         product_map = DatabaseRowToProductTranslator.translate_rows_to_model(all_rows)
         return product_map
 
