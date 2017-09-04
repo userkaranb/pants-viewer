@@ -1,8 +1,8 @@
 import csv
 import os
 
-class ProductCsvTranslator(object):
-    def __init__(self, path_to_csv = 'csv/products.csv'):
+class BaseCsvTranslator(object):
+    def __init__(self, path_to_csv):
         self.path_to_csv = path_to_csv
 
     def translate(self):
@@ -12,7 +12,17 @@ class ProductCsvTranslator(object):
         for row in csv_data:
             all_rows.append(self.translate_row(row))
         return all_rows
-            
+
+    def format_string(self, s):
+        return s.replace("'", "").replace("\"", "").replace("\"", "").strip()
+
+    def translate_row(row):
+        pass
+
+class ProductCsvTranslator(BaseCsvTranslator):
+    def __init__(self, path_to_csv = 'csv/products.csv'):
+        super(ProductCsvTranslator, self).__init__(path_to_csv)
+
     def translate_row(self, row):
         id = int(row[0])
         name = row[1]
@@ -20,22 +30,14 @@ class ProductCsvTranslator(object):
         description = ''.join(row[3:])
         return {
             'id' : id,
-            'name': name,
-            'image': image,
-            'description': description
+            'name': self.format_string(name),
+            'image': self.format_string(image),
+            'description': self.format_string(description)
         }
 
-class InventoryCsvTranslator(object):
+class InventoryCsvTranslator(BaseCsvTranslator):
     def __init__(self, path_to_csv = 'csv/inventory.csv'):
-        self.path_to_csv = path_to_csv
-
-    def translate(self):
-        csv_data = csv.reader(file(self.path_to_csv))
-        _ = next(csv_data)
-        all_rows = []
-        for row in csv_data:
-            all_rows.append(self.translate_row(row))
-        return all_rows
+        super(InventoryCsvTranslator, self).__init__(path_to_csv)
 
     def translate_row(self, row):
         id = int(row[0])
@@ -47,6 +49,6 @@ class InventoryCsvTranslator(object):
             'id': id,
             'waist': waist,
             'length': length,
-            'style': style,
+            'style': self.format_string(style),
             'count': count
         }

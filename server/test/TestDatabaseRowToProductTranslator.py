@@ -5,10 +5,10 @@ from services.DatabaseRowToProductTranslator import DatabaseRowToProductTranslat
 
 global_vars = { 
     'ProductHeaders': ['id', 'product_id', 'waist', 'length', 'style', 'count', 'product_id', 'product_name', 'product_image', 'product_description'],
-    'ProductData1': (1, 1, 28, 36, 'style 1', 100, 1, ' " Roomy Trousers 1\" " ', 'www.bonobos.com/1', 'Roomy Beige Trousers'),
+    'ProductData1': (1, 1, 28, 36, 'style 1', 100, 1, 'Roomy Trousers 1', 'www.bonobos.com/1', 'Roomy Beige Trousers'),
     'ProductData2': (2, 2, 30, 32, 'style 2', 85, 2, 'Skinny Jeans 1', 'www.bonobos.com/2', 'Skinny Jeans'),
     'ProductData3': (3, 2, 32, 32, 'style 3', 10, 2, 'Skinny Jeans 1', 'www.bonobos.com/2', 'Skinny Jeans'),
-    'ProductData4': (4, 1, 32, 32, 'style 4', 10, 1, ' " Roomy Trousers 1\" " ', 'www.bonobos.com/1', 'Roomy Beige Trousers')
+    'ProductData4': (4, 1, 32, 32, 'style 4', 10, 1, 'Roomy Trousers 1', 'www.bonobos.com/1', 'Roomy Beige Trousers')
 }
 
 
@@ -96,9 +96,3 @@ def test_create_new_product():
     assert product_result.inventory_list[0].waist == waist
     assert product_result.inventory_list[0].length == length
     assert product_result.inventory_list[0].count == count
-
-def test_format_string():
-    style = '" This is a style for a pair of Big Pants\". " '
-    expected_style = 'This is a style for a pair of Big Pants.'
-    actual_style = DatabaseRowToProductTranslator.format_string(style)
-    assert actual_style == expected_style

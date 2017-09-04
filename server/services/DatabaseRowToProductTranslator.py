@@ -19,18 +19,13 @@ class DatabaseRowToProductTranslator(object):
         product_id = int(row[1])
         waist = int(row[2])
         length = int(row[3])
-        style = DatabaseRowToProductTranslator.format_string(row[4])
+        style = row[4]
         count = int(row[5])
         return (product_id, InventoryItem(waist, length, style, count))
 
     @staticmethod
     def create_new_product(row, inventory_item, product_id):
-        product_name = DatabaseRowToProductTranslator.format_string(row[7])
-        product_image = DatabaseRowToProductTranslator.format_string(row[8])
-        product_description = DatabaseRowToProductTranslator.format_string(row[9])
+        product_name = row[7]
+        product_image = row[8]
+        product_description = row[9]
         return Product(product_id, product_name, product_image, product_description, [inventory_item])
-
-    @staticmethod
-    def format_string(s):
-        return s.replace("'", "").replace("\"", "").replace("\"", "").strip()
-
