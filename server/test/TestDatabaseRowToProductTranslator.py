@@ -1,34 +1,14 @@
-from nose import with_setup
+"""Test our translator from Database to Model"""
+from test.test_modules.TestHelperData import TestHelperData
 from models.Product import Product
 from models.InventoryItem import InventoryItem
 from services.DatabaseRowToProductTranslator import DatabaseRowToProductTranslator
 
-global_vars = { 
-    'ProductHeaders': ['id', 'product_id', 'waist', 'length', 'style', 'count', 'product_id', 'product_name', 'product_image', 'product_description'],
-    'ProductData1': (1, 1, 28, 36, 'style 1', 100, 1, 'Roomy Trousers 1', 'www.bonobos.com/1', 'Roomy Beige Trousers'),
-    'ProductData2': (2, 2, 30, 32, 'style 2', 85, 2, 'Skinny Jeans 1', 'www.bonobos.com/2', 'Skinny Jeans'),
-    'ProductData3': (3, 2, 32, 32, 'style 3', 10, 2, 'Skinny Jeans 1', 'www.bonobos.com/2', 'Skinny Jeans'),
-    'ProductData4': (4, 1, 32, 32, 'style 4', 10, 1, 'Roomy Trousers 1', 'www.bonobos.com/1', 'Roomy Beige Trousers')
-}
-
-
-def setup_fake_data_rows():
-    global_vars['fake_data_rows'] = [
-        global_vars['ProductHeaders'],
-        global_vars['ProductData1'],
-        global_vars['ProductData2'],
-        global_vars['ProductData3'],
-        global_vars['ProductData4']
-    ]
-
-def tear_down_fake_data_rows():
-    pass
-
-@with_setup(setup_fake_data_rows, tear_down_fake_data_rows)
-def test_translate_rows_to_model_product():
-    fake_data_rows = global_vars['fake_data_rows']
+def test_translate_rows_to_product():
+    """Translate row to Product test"""
+    fake_data_rows = TestHelperData.fake_database_rows()
     result = DatabaseRowToProductTranslator.translate_rows_to_model(fake_data_rows)
-    assert set(result.keys()) == set([1,2])
+    assert set(result.keys()) == set([1, 2])
     assert len(result.keys()) == 2
     assert isinstance(result[1], Product)
     assert result[1].product_id == 1
@@ -36,13 +16,13 @@ def test_translate_rows_to_model_product():
     assert result[1].product_image == 'www.bonobos.com/1'
     assert result[1].product_name == 'Roomy Trousers 1'
 
-@with_setup(setup_fake_data_rows, tear_down_fake_data_rows)
-def test_translate_rows_to_model_inventory_list():
-    fake_data_rows = global_vars['fake_data_rows']
+def test_translate_rows_to_inv():
+    """Translate rows to Product and corresponding inventory lists"""
+    fake_data_rows = TestHelperData.fake_database_rows()
     result = DatabaseRowToProductTranslator.translate_rows_to_model(fake_data_rows)
     inventory_list = result[1].inventory_list
     assert len(inventory_list) == 2
-    
+
     waists = set([inventory_item.waist for inventory_item in inventory_list])
     assert waists == set([28, 32])
 
@@ -56,6 +36,7 @@ def test_translate_rows_to_model_inventory_list():
     assert styles == set(['style 1', 'style 4'])
 
 def test_get_inventory_item():
+    """Test the retrieval of inventory item from database"""
     row_id = 10
     product_id = 3
     waist = 40
@@ -72,6 +53,7 @@ def test_get_inventory_item():
     assert result[1].count == count
 
 def test_create_new_product():
+    """Test creating new product model"""
     row_id = 10
     product_id = 3
     waist = 30
@@ -82,15 +64,17 @@ def test_create_new_product():
     product_image = 'www.bonobos.com/images/13'
     product_description = 'Very large comfy pants'
     inventory_item = InventoryItem(waist, length, style, count)
-    row = (row_id, product_id, waist, length, style, count, product_id, product_name, product_image, product_description)
-    product_result = DatabaseRowToProductTranslator.create_new_product(row, inventory_item, product_id)
+    row = (row_id, product_id, waist,
+           length, style, count, product_id, product_name, product_image, product_description)
+    product_result = DatabaseRowToProductTranslator.create_new_product(
+        row, inventory_item, product_id)
 
     assert isinstance(product_result, Product)
     assert product_result.product_id == product_id
     assert product_result.product_name == product_name
     assert product_result.product_image == product_image
     assert product_result.product_description == product_description
-    
+
     assert len(product_result.inventory_list) == 1
     assert product_result.inventory_list[0].style == style
     assert product_result.inventory_list[0].waist == waist

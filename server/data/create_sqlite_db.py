@@ -34,7 +34,7 @@ def insert_inventory_query():
 def insert_products(c, conn):
     p = ProductCsvTranslator()
     q = insert_products_query()
-    translated_rows = p.translate()
+    translated_rows = p.translate('csv/products.csv')
     for product_fields in translated_rows:
         c.execute(q, (
             int(product_fields['id']), 
@@ -46,7 +46,7 @@ def insert_products(c, conn):
         conn.commit()
 
 def insert_inventory(c, conn):
-    i = InventoryCsvTranslator()
+    i = InventoryCsvTranslator('csv/inventory.csv')
     q = insert_inventory_query()
     translated_rows = i.translate()
     for product_fields in translated_rows:

@@ -1,26 +1,31 @@
 from nose import with_setup
 from data.ProductCsvTranslator import ProductCsvTranslator, InventoryCsvTranslator, BaseCsvTranslator
 
-global_vars = { 
+GLOBAL_VARS = {
     'ProductCsvTranslator': None,
     'InventoryCsvTranslator': None
 }
 
 def setup_product_csv_translator():
-    global_vars['ProductCsvTranslator'] = ProductCsvTranslator('test/csv/TestProducts.csv')
+    """Sets up ProductCsvTranslator before each test case"""
+    GLOBAL_VARS['ProductCsvTranslator'] = ProductCsvTranslator('test/csv/TestProducts.csv')
 
 def setup_inventory_csv_translator():
-    global_vars['InventoryCsvTranslator'] = InventoryCsvTranslator('test/csv/TestInventory.csv')
+    """Sets up InventoryCsvTranslator before each test case"""
+    GLOBAL_VARS['InventoryCsvTranslator'] = InventoryCsvTranslator('test/csv/TestInventory.csv')
 
 def teardown_product_translator():
-    global_vars['ProductCsvTranslator'] = None
+    """Tears down ProductCsvTranslator after each test case"""
+    GLOBAL_VARS['ProductCsvTranslator'] = None
 
 def teardown_inventory_translator():
-    global_vars['InventoryCsvTranslator'] = None
+    """Tears down InventoryCsvTranslator after each test case"""
+    GLOBAL_VARS['InventoryCsvTranslator'] = None
 
 @with_setup(setup_product_csv_translator, teardown_product_translator)
 def test_product_csv_translate():
-    translator = global_vars['ProductCsvTranslator']
+    """Tests ProductCsvTranslator against a fake csv file"""
+    translator = GLOBAL_VARS['ProductCsvTranslator']
     result = translator.translate()
     assert len(result) == 2
 
@@ -38,7 +43,8 @@ def test_product_csv_translate():
 
 @with_setup(setup_product_csv_translator, teardown_product_translator)
 def test_format_string():
-    translator = global_vars['ProductCsvTranslator']
+    """Tests the removal of garbage characters in a string"""
+    translator = GLOBAL_VARS['ProductCsvTranslator']
     style = '" This is a style for a pair of Big Pants\". " '
     expected_style = 'This is a style for a pair of Big Pants.'
     actual_style = translator.format_string(style)
@@ -46,12 +52,12 @@ def test_format_string():
 
 @with_setup(setup_inventory_csv_translator, teardown_inventory_translator)
 def test_inventory_csv_translate():
-    translator = global_vars['InventoryCsvTranslator']
+    """Tests InventoryCsvTranslator against a fake csv file"""
+    translator = GLOBAL_VARS['InventoryCsvTranslator']
     result = translator.translate()
     assert len(result) == 5
 
-    # Test 2 of the rows 
-
+    # Test 2 of the rows
     row1 = result[0]
     assert row1['id'] == 1
     assert row1['waist'] == 28
@@ -66,12 +72,12 @@ def test_inventory_csv_translate():
     assert row3['style'] == 'stone cutters'
     assert row3['count'] == 72
 
-def test_cant_instantiate_base_class_creation():
+def test_base_translator():
+    """We should not be able to instantiate an abstract class. This test proves that"""
     err = None
     try:
-        x = BaseCsvTranslator('path')
-    except TypeError as e:
-        err = e
+        BaseCsvTranslator('path')
+    except TypeError as ex:
+        err = ex
 
     assert err is not None
-

@@ -1,7 +1,9 @@
+"""Test Product model creation"""
 from models.Product import Product
 from models.InventoryItem import InventoryItem
 
 def test_product():
+    """Test Product ctor"""
     product_id = 3
 
     waist1 = 30
@@ -17,11 +19,12 @@ def test_product():
     product_name = 'Big Pants'
     product_image = 'www.bonobos.com/images/13'
     product_description = 'Very large comfy pants'
-    
+
     inventory_item1 = InventoryItem(waist1, length1, style1, count1)
     inventory_item2 = InventoryItem(waist2, length2, style2, count2)
-    
-    product = Product(product_id, product_name, product_image, product_description, [inventory_item1, inventory_item2])
+
+    product = Product(product_id, product_name,
+                      product_image, product_description, [inventory_item1, inventory_item2])
 
     assert product.product_id == product_id
     assert product.product_name == product_name
