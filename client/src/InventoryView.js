@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Request from 'superagent';
+import axios from 'axios';
 import ReactDataGrid from 'react-data-grid';
 
 class InventoryView extends Component {
@@ -39,28 +39,28 @@ class InventoryView extends Component {
   
   componentWillMount(){
     var url = "http://localhost:5000/products/" + this.getCurrentProductInventoryId()
-    Request.get(url).then((response) => {
+    axios.get(url).then((response) => {
         this.setState({
-            product_and_inventory: response.body,
-            table_rows: this.createTableRows(response.body)
+            product_and_inventory: response.data,
+            table_rows: this.createTableRows(response.data)
         })
     });
   }
 
   render() {
-    console.log(this.state.table_rows)
     return (
         <div>
+        <a href='/products'>Go Back Home</a>
         <h1>{this.state.product_and_inventory['product_name']}</h1>
         <h3>{this.state.product_and_inventory['product_description']}</h3>
-        <div><img src={this.state.product_and_inventory['product_image']}/></div>
+        <div><img src={this.state.product_and_inventory['product_image']} alt={'Picture of Product ' + this.state.product_and_inventory['product_id']}/></div>
         <h1>Inventory</h1>
         <div>
-        <ReactDataGrid
-          columns = {this._columns}
-          rowGetter = {this.rowGetter}
-          rowsCount = {this.state.table_rows.length}
-        />
+          <ReactDataGrid
+            columns = {this._columns}
+            rowGetter = {this.rowGetter}
+            rowsCount = {this.state.table_rows.length}
+          />
 
         </div>
        </div>

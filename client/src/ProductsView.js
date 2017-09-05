@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Router, Route } from 'react-router';
-import Request from 'superagent';
+import axios from 'axios'
+
 class ProductsView extends Component {
   constructor(props){
     super(props)
@@ -11,23 +11,24 @@ class ProductsView extends Component {
   
   componentWillMount(){
     var url = "http://localhost:5000/products"
-    Request.get(url).then((response) => {
+    axios.get(url).then((response) => {
         console.log(response)
+
         this.setState({
-            products: response.body
+            products: response.data
         })
     });
   }
 
   goToInventory(id){
-    this.props.history.push('/inventory/' + id)
+    this.props.history.replace('/inventory/' + id)
   }
 
   pantsDiv(key){
      return (
         <div key={key} id={key}>
         <div>{this.state.products[key]['product_name']}</div>
-        <div><img src={this.state.products[key]['product_image']} onClick={() => this.goToInventory(key)}/></div>
+        <div><img src={this.state.products[key]['product_image']} onClick={() => this.goToInventory(key)} alt={'Picture of Product ' + key}/></div>
         </div>
     )
   }
