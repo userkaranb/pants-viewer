@@ -2,9 +2,6 @@ astroid==1.5.3
 backports.functools-lru-cache==1.4
 click==6.7
 configparser==3.5.0
-Django==1.11.4
--e git://github.com/theatlantic/django-mysqlndb-backend.git@15403abcf18f264a1945b4f2fb684d15e0fdc82c#egg=django_mysqlndb_backend
-django-transaction-hooks==0.2
 enum34==1.1.6
 Flask==0.12.2
 Flask-Cors==3.0.3
