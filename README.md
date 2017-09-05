@@ -35,7 +35,13 @@ Now, if you go to localhost:5000/ in your browser, you should see a landing page
 
 # Setup Client
 
-TODO:...
+Setting up the client should be very straightforward. All you need to do is install the dependencies, and then start the client, which you can do in one command:
+
+```
+npm install && npm start
+```
+
+You should now be able to to view the client at http://localhost:3000/ which will contact the server you started up in the previous step at http://localhost:5000
 
 # Architecture
 
@@ -63,3 +69,5 @@ There are a few things that can definitely be done to enhance this app.
 The first thing I would like to highlight is client side caching. In React, one can utilize Redux to maintain state. Since our data is not changing, we can afford to keep all this data in memory and avoid unnecssary calls to the server.
 
 On the backend, it would be nice to use a real logger, to measure behavior and latency. If the size of our database grows, these queries could become more costly. 
+
+I would also like to deploy this to a real environment, like heroku. I could place this in a docker container, and add config files so the URLs aren't hardcoded. Currently, this is only set up to run locally. 
