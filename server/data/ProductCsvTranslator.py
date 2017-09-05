@@ -1,7 +1,10 @@
 import csv
 import os
+from abc import ABCMeta, abstractmethod
 
 class BaseCsvTranslator(object):
+    __metaclass__ = ABCMeta
+
     def __init__(self, path_to_csv):
         self.path_to_csv = path_to_csv
 
@@ -16,6 +19,7 @@ class BaseCsvTranslator(object):
     def format_string(self, s):
         return s.replace("'", "").replace("\"", "").replace("\"", "").strip()
 
+    @abstractmethod
     def translate_row(row):
         pass
 

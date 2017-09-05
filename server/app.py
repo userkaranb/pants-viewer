@@ -8,7 +8,7 @@ CORS(app)
 
 @app.route("/")
 def main():
-    return products()
+    return render_template('index.html')
 
 @app.route("/products_with_inventory")
 def products_with_inventory():

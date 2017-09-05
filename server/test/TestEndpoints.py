@@ -1,4 +1,4 @@
-from MockDataAccess import MockDataAccess
+from test_modules.MockDataAccess import MockDataAccess
 from services.ProductCachingService import ProductCachingService
 from app import app
 import mock

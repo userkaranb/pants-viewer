@@ -1,5 +1,5 @@
 from nose import with_setup
-from data.ProductCsvTranslator import ProductCsvTranslator, InventoryCsvTranslator
+from data.ProductCsvTranslator import ProductCsvTranslator, InventoryCsvTranslator, BaseCsvTranslator
 
 global_vars = { 
     'ProductCsvTranslator': None,
@@ -7,10 +7,10 @@ global_vars = {
 }
 
 def setup_product_csv_translator():
-    global_vars['ProductCsvTranslator'] = ProductCsvTranslator('test/TestProducts.csv')
+    global_vars['ProductCsvTranslator'] = ProductCsvTranslator('test/csv/TestProducts.csv')
 
 def setup_inventory_csv_translator():
-    global_vars['InventoryCsvTranslator'] = InventoryCsvTranslator('test/TestInventory.csv')
+    global_vars['InventoryCsvTranslator'] = InventoryCsvTranslator('test/csv/TestInventory.csv')
 
 def teardown_product_translator():
     global_vars['ProductCsvTranslator'] = None
@@ -65,4 +65,13 @@ def test_inventory_csv_translate():
     assert row3['length'] == 31
     assert row3['style'] == 'stone cutters'
     assert row3['count'] == 72
+
+def test_cant_instantiate_base_class_creation():
+    err = None
+    try:
+        x = BaseCsvTranslator('path')
+    except TypeError as e:
+        err = e
+
+    assert err is not None
 

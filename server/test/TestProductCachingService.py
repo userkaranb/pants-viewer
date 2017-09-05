@@ -1,5 +1,5 @@
 from nose import with_setup
-from MockDataAccess import MockDataAccess
+from test_modules.MockDataAccess import MockDataAccess
 from services.ProductCachingService import ProductCachingService
 from models.Product import Product
 
