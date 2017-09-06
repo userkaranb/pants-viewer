@@ -4,7 +4,6 @@ import { BrowserRouter, } from 'react-router-dom';
 import ProductsView from './ProductsView.js';
 import InventoryView from './InventoryView'
 import HomeView from './HomeView'
-import './App.css';
 
 class App extends Component {
   render() {

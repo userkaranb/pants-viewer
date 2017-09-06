@@ -43,14 +43,19 @@ npm install && npm start
 
 You should now be able to to view the client at http://localhost:3000/ which will contact the server you started up in the previous step at http://localhost:5000
 
+# Using the app
+
+One thing to note is that the main View, the HomeView, is what I intended the output of this project to be. This view (which is at localhost:3000/) displays each of the products and some metadata about each product. If you go to the bottom, you will see the table displaying all rows of inventory. I have included the product Id in each row.
+
+There were two additional routes that I created, and they are for a different workflow which was not asked for in the assignment. If you go to localhost:3000/products -- you will see a view highlighting the 4 products. If you click on one, you will be redirected to a new screen which shows the inventory just for that product. I just added this if the user wants a different view of a particular product. 
+
 # Architecture
 
 The technology decision was to go with a python flask server for the backend, and react for the front end. React is new and interesting, and I definitely wanted to get more comfortable with it after using this project. Python is a language I have used in the past, and I love how easy it is integrable with many databases. I used sqlite3, because I know the size of our database and I could actually check in our .db file. 
 
 On startup, the server creates a ProductCachingService, a class responsible for grabbing products and inventories from the database, and transforming them into dictionaries immediately ready for consumption by a client. It keeps these dictionaries in memory, to avoid unnecessary and repeated queries to the database. We assume this data isn't going to be changed. The backend is completely unit tested (with the exception of DataAccess, which hits the database for trivial operations).
 
-The front end, is fairly light, and displays all 4 of the products on the home page. When clicking one of them, we are brought to a product and its inventory. Each of those page loads calls a separate endpoint in the python server: the home page calling the endpoint that displays metadata about each product without loading any inventory details, and the second displaying 
-the inventory details for that product in a grid.
+The front end, is fairly light, and displays all 4 of the products on the home page along with a table displaying the inventory. There is only one call to the server, which is the /products_with_inventory route at localhost:5000
 
 # Testing
 
@@ -70,4 +75,6 @@ The first thing I would like to highlight is client side caching. In React, one 
 
 On the backend, it would be nice to use a real logger, to measure behavior and latency. If the size of our database grows, these queries could become more costly. 
 
-I would also like to deploy this to a real environment, like heroku. I could place this in a docker container, and add config files so the URLs aren't hardcoded. Currently, this is only set up to run locally. 
+I would also like to deploy this to a real environment, like heroku. I could place this in a docker container, and add config files so the URLs aren't hardcoded. Currently, this is only set up to run locally.
+
+Another thing would be adding tests to the front end viewer. The front end is fairly simple, and isn't doing a whole lot. The backend was tested pretty thorougly, which is why I was confident in the integrity of the data being displayed. That being said, if I had more time, I would like to add some tests to test our components.
