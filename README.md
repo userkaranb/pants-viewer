@@ -31,7 +31,16 @@ Start the python app. It will open on port 5000
 $ python app.py
 ```
 
-Now, if you go to localhost:5000/ in your browser, you should see a landing page with the different routes. The server is up. Now let's set up the client
+Now, if you go to localhost:5000/ in your browser, you should see a landing page with the different routes. The server is up and works immediately and connects to the sqlite database, which is checked in as "pants.db". For any reason, if you woud like to recreate the database, you can run the following:
+
+```
+$ cd data/
+$ python create_sqlite_db.py
+```
+
+This is a script I wrote to create the tables in the first place. This script will read each of the csv files, create tables for each, and then load data from each csv file into its corresponding table. It will store the database in "pants.db" in the data folder. It is very important to run the script from within the folder. 
+
+ Now let's set up the client
 
 # Setup Client
 

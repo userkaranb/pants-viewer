@@ -27,7 +27,7 @@ class ProductsView extends Component {
 
   pantsDiv(key){
      return (
-        <ProductDetail key={key} product_id={key} product={this.state.products[key]} onClick={() => this.goToInventory(key)}></ProductDetail>
+        <ProductDetail key={key} productId={key} product={this.state.products[key]} onClick={() => this.goToInventory(key)}></ProductDetail>
     )
   }
 

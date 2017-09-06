@@ -7,24 +7,24 @@ class InventoryTable extends Component {
     this.createTableRows = this.createTableRows.bind(this);
     this.rowGetter = this.rowGetter.bind(this);
     this._columns = [
-      { key: 'product_id', name: 'Product Id' },
+      { key: 'productId', name: 'Product Id' },
       { key: 'style', name: 'Style' },
       { key: 'waist', name: 'Waist' },
       { key: 'length', name: 'Length' },
       { key: 'count', name: 'Count' } ];
-    this.tableRows = this.createTableRows(this.props.response_body)
+    this.tableRows = this.createTableRows(this.props.responseBody)
   }
 
   rowGetter(i) {
     return this.tableRows[i]
   }
 
-  createTableRows(response_body) {
-    var product_id_to_rows = Object.keys(response_body).map(function(k) {
-          var values = response_body[k]['inventory_list']
+  createTableRows(responseBody) {
+    var productIdToRows = Object.keys(responseBody).map(function(k) {
+          var values = responseBody[k]['inventory_list']
           return Object.values(values).map(function(v){
             return {
-              product_id: k,
+              productId: k,
               style: v['style'],
               waist: v['waist'],
               length: v['length'],
@@ -32,7 +32,7 @@ class InventoryTable extends Component {
             }
           })
         })
-        var flattened = [].concat.apply([], product_id_to_rows)
+        var flattened = [].concat.apply([], productIdToRows)
         return flattened
   }
 

@@ -8,30 +8,30 @@ class HomeView extends Component {
     super(props)
     this.productDetails = this.productDetails.bind(this);
     this.table = this.table.bind(this);
-    this.state = {product_and_inventory: [], table_rows: []}
+    this.state = {productAndInventory: []}
   }
   
   componentWillMount(){
     var url = "http://localhost:5000/products_with_inventory"
     axios.get(url).then((response) => {
         this.setState({
-            product_and_inventory: response.data
+            productAndInventory: response.data
         })
     });
   }
 
   productDetails(){
-    var products = this.state.product_and_inventory
+    var products = this.state.productAndInventory
     return Object.keys(products).map(
-       function(product_id) {
-         return <ProductDetail key={product_id} product_id={product_id} product={products[product_id]}></ProductDetail>
+       function(productId) {
+         return <ProductDetail key={productId} productId={productId} product={products[productId]}></ProductDetail>
        }
     )
   }
 
   table() {
-    if(this.state.product_and_inventory.length !== 0) {
-      return <InventoryTable response_body={this.state.product_and_inventory}></InventoryTable>
+    if(this.state.productAndInventory.length !== 0) {
+      return <InventoryTable responseBody={this.state.productAndInventory}></InventoryTable>
     }
   }
 

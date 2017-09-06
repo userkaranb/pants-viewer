@@ -8,7 +8,7 @@ class InventoryView extends Component {
     super(props)
     this.table = this.table.bind(this);
     this.getCurrentProductInventoryId = this.getCurrentProductInventoryId.bind(this);
-    this.state = {product_and_inventory: [], table_rows: []}
+    this.state = {productAndInventory: [], table_rows: []}
   }
 
   getCurrentProductInventoryId() {
@@ -20,16 +20,16 @@ class InventoryView extends Component {
     var url = "http://localhost:5000/products/" + this.getCurrentProductInventoryId()
     axios.get(url).then((response) => {
         this.setState({
-            product_and_inventory: response.data
+            productAndInventory: response.data
         })
     });
   }
 
   table() {
-    if (this.state.product_and_inventory.length !==0) {
+    if (this.state.productAndInventory.length !==0) {
       var body = {}
-      body[this.getCurrentProductInventoryId()] = this.state.product_and_inventory
-      return <InventoryTable response_body={body}></InventoryTable>
+      body[this.getCurrentProductInventoryId()] = this.state.productAndInventory
+      return <InventoryTable responseBody={body}></InventoryTable>
     }
   }
 
@@ -37,7 +37,7 @@ class InventoryView extends Component {
     return (
         <div>
         <a href='/products'>Go Back Home</a>
-        <ProductDetail product_id={this.getCurrentProductInventoryId()} product={this.state.product_and_inventory}></ProductDetail>
+        <ProductDetail productId={this.getCurrentProductInventoryId()} product={this.state.productAndInventory}></ProductDetail>
         <h1>Inventory</h1>
         {this.table()}
        </div>
