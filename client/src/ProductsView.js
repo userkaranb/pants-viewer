@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import ProductDetail from './components/ProductDetail.js'
 
 class ProductsView extends Component {
   constructor(props){
@@ -26,10 +27,7 @@ class ProductsView extends Component {
 
   pantsDiv(key){
      return (
-        <div key={key} id={key}>
-        <div>{this.state.products[key]['product_name']}</div>
-        <div><img src={this.state.products[key]['product_image']} onClick={() => this.goToInventory(key)} alt={'Picture of Product ' + key}/></div>
-        </div>
+        <ProductDetail key={key} product_id={key} product={this.state.products[key]} onClick={() => this.goToInventory(key)}></ProductDetail>
     )
   }
 

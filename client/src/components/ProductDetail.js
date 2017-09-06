@@ -6,7 +6,7 @@ class ProductDetail extends Component {
       <div key={this.props.product_id} id={this.props.product_id}>
         <h1>{this.props.product['product_name']}</h1>
         <h4>{this.props.product['product_description']}</h4>
-        <div><img src={this.props.product['product_image']} alt={'Picture of Product ' + this.props.product_id}/></div>
+        <div><img src={this.props.product['product_image']} onClick={this.props.onClick} alt={'Picture of Product ' + this.props.product_id}/></div>
       </div>
     );
   }
